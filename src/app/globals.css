@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --font-serif-family: var(--font-serif), Georgia, serif;
+  --font-sans-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-mono-family: var(--font-mono), monospace;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Brand Theme Tokens */
+  --color-primary: #0D3B2E;
+  --color-primary-dark: #07221A;
+  --color-primary-light: #1F5A46;
+  --color-surface: #FBF9F5;
+  --color-surface-card: #FFFFFF;
+  --color-surface-muted: #F2EFE9;
+  --color-border: #E8E4DC;
+  
+  --color-text-main: #18221E;
+  --color-text-muted: #5E6D66;
+  
+  --color-accent-amber: #C6923B;
+  --color-accent-gold: #DDA239;
+  
+  --color-rx: #7C2D12;
+  --color-rx-bg: #FEE2E2;
+  --color-otc: #065F46;
+  --color-otc-bg: #D1FAE5;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans-family);
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-serif-title {
+  font-family: var(--font-serif-family);
+}
+
+.font-mono-code {
+  font-family: var(--font-mono-family);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ede6;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7beaf;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a89e8f;
+}
+
+/* Rolling marquee ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Print Styles for 80mm Thermal Receipt and A4 GST Tax Invoice */
+@media print {
+  /* Hide standard page elements during print */
+  header, footer, nav, aside, .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Specific rule for 80mm Thermal Receipts */
+  .thermal-receipt-view {
+    width: 76mm !important;
+    max-width: 76mm !important;
+    margin: 0 auto !important;
+    padding: 2mm !important;
+    font-family: var(--font-mono-family) !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  .thermal-receipt-view * {
+    color: #000000 !important;
+  }
+
+  /* Specific rule for A4 Tax Invoice */
+  .a4-invoice-view {
+    width: 100% !important;
+    max-width: 210mm !important;
+    margin: 0 auto !important;
+    padding: 10mm !important;
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
 }
